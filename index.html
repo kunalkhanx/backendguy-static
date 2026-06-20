@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunal Ali Khan | Software Engineer & Backend Developer</title>
+    <meta name="description" content="Portfolio of Kunal Ali Khan, Software Engineer specializing in scalable backends with Laravel, Node.js, and APIs.">
+    
+    <!-- Google Fonts: Inter & JetBrains Mono for tech look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <!-- Tailwind Configuration & Custom CSS -->
+    <style type="text/tailwindcss">
+        @theme {
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            /* Theme: Warm Amber & Yellow */
+            --color-primary-400: #fbbf24; 
+            --color-primary-500: #f59e0b; 
+            --color-secondary-500: #eab308; 
+            --color-secondary-600: #ca8a04; 
+        }
+
+        /* Explicitly enable class-based dark mode for Tailwind v4 */
+        @variant dark (&:where(.dark, .dark *));
+
+        /* Base Grid Pattern for Tech Vibe */
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(245, 158, 11, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(245, 158, 11, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .dark .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(251, 191, 36, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(251, 191, 36, 0.03) 1px, transparent 1px);
+        }
+
+        /* Scroll Reveal Utility Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            transform: translateX(-30px);
+        }
+        .reveal-right {
+            transform: translateX(30px);
+        }
+
+        /* Custom Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-float-delayed { animation: float 4s ease-in-out 2s infinite; }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-150%); }
+            100% { transform: translateX(150%); }
+        }
+        .animate-shimmer {
+            animation: shimmer 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans antialiased relative selection:bg-primary-500 selection:text-slate-900">
+
+    <!-- Grid Background -->
+    <div class="fixed inset-0 bg-grid-pattern z-[-1] pointer-events-none"></div>
+
+    <!-- NAVIGATION HEADER -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 transition-all duration-300 shadow-sm dark:shadow-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 transition-all duration-300 relative z-50" id="nav-container">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#home" class="text-2xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-secondary-600 to-primary-500">
+                        BackendGuy<span class="text-slate-900 dark:text-white">.</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-2">
+                    <a href="#home" class="nav-link px-4 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all">Home</a>
+                    <a href="#about" class="nav-link px-4 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all">About</a>
+                    <a href="#experience" class="nav-link px-4 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all">Experience</a>
+                    <a href="#projects" class="nav-link px-4 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-primary-500 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all">Projects</a>
+                </div>
+
+                <!-- Right Side Actions -->
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors focus:outline-none" aria-label="Toggle Dark Mode">
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-slate-800 dark:text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+                    </button>
+                    
+                    <!-- Desktop CTA -->
+                    <a href="#contact" class="hidden md:inline-flex px-5 py-2.5 text-sm font-bold text-slate-900 bg-gradient-to-r from-primary-400 to-primary-500 rounded-full hover:shadow-lg hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all">
+                        Hire Me
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors focus:outline-none" aria-label="Open Mobile Menu">
+                        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg id="menu-icon-close" class="hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-white dark:bg-slate-900 translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col pt-24 pb-8 px-6 overflow-y-auto shadow-2xl">
+        <div class="flex flex-col space-y-2 text-center mt-8">
+            <a href="#home" class="mobile-link text-2xl font-extrabold text-slate-800 dark:text-slate-200 py-4 border-b border-slate-100 dark:border-slate-800 transition-colors">Home</a>
+            <a href="#about" class="mobile-link text-2xl font-extrabold text-slate-800 dark:text-slate-200 py-4 border-b border-slate-100 dark:border-slate-800 transition-colors">About</a>
+            <a href="#experience" class="mobile-link text-2xl font-extrabold text-slate-800 dark:text-slate-200 py-4 border-b border-slate-100 dark:border-slate-800 transition-colors">Experience</a>
+            <a href="#projects" class="mobile-link text-2xl font-extrabold text-slate-800 dark:text-slate-200 py-4 border-b border-slate-100 dark:border-slate-800 transition-colors">Projects</a>
+            
+            <div class="pt-10">
+                <a href="#contact" class="mobile-link inline-block w-full px-6 py-4 text-lg font-bold text-slate-900 bg-gradient-to-r from-primary-400 to-primary-500 rounded-xl shadow-lg hover:shadow-primary-500/30 transition-all">
+                    Hire Me
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <main id="home" class="min-h-screen flex items-center pt-20 overflow-hidden relative">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-50 dark:opacity-20 animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-50 dark:opacity-20 animate-float-delayed"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-10 lg:mt-0">
+                
+                <div class="reveal reveal-left">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 mb-6">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span class="text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Available for work</span>
+                    </div>
+                    
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                        Hi, I'm <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-secondary-600 to-primary-500">Kunal Khan</span><br>
+                    </h1>
+                    
+                    <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-lg leading-relaxed">
+                        A Software Engineer specializing in scalable backend architectures and full-stack solutions. I turn complex data logic into reliable, high-performance infrastructure.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="px-8 py-3.5 text-base font-bold rounded-lg text-slate-900 bg-primary-500 hover:bg-primary-400 transition-all shadow-xl shadow-primary-500/20 hover:-translate-y-1">
+                            Explore Projects
+                        </a>
+                        <a href="https://github.com/kunalkhanx" target="_blank" class="px-8 py-3.5 text-base font-bold rounded-lg text-slate-900 bg-white border border-slate-200 dark:bg-slate-900 dark:text-white dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all hover:-translate-y-1 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+                            GitHub Profile
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-right hidden lg:block relative h-[500px]">
+                    <div class="absolute top-10 right-10 w-80 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 p-4 transform rotate-3 animate-float overflow-hidden z-10 transition-colors duration-300">
+                        <div class="flex gap-1.5 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-red-400 dark:bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber-400 dark:bg-amber-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400 dark:bg-green-500"></div>
+                        </div>
+                        <div class="font-mono text-xs text-slate-600 dark:text-primary-400">
+                            <p><span class="text-pink-600 dark:text-pink-500">const</span> <span class="text-blue-600 dark:text-blue-400">developer</span> = {</p>
+                            <p class="pl-4">name: <span class="text-green-600 dark:text-green-300">'Kunal Ali Khan'</span>,</p>
+                            <p class="pl-4">role: <span class="text-green-600 dark:text-green-300">'Software Engineer'</span>,</p>
+                            <p class="pl-4">location: <span class="text-green-600 dark:text-green-300">'Bolpur, India'</span>,</p>
+                            <p class="pl-4">stack: [<span class="text-amber-500">'NodeJS'</span>, <span class="text-amber-500">'Laravel'</span>]</p>
+                            <p>};</p>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-10 left-10 z-20">
+                        <img class="h-64 w-64 rounded-full border-8 border-white dark:border-slate-800 shadow-2xl object-cover animate-float-delayed transition-colors duration-300" 
+                             src="kunal.jpg" 
+                             alt="Kunal Khan Avatar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ABOUT & SKILLS SECTION -->
+    <section id="about" class="py-24 bg-white dark:bg-slate-900 relative transition-colors duration-300 border-y border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div class="reveal reveal-left">
+                    <h2 class="text-3xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-3">
+                        <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        About My Stack
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+                        I am a full-stack Software Engineer with over 3 years of professional experience, leaning heavily into backend development. I specialize in building secure authentication systems, writing serverless functions (AWS Lambda), and developing robust RESTful APIs.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                        Whether I am engineering large-scale data transfer pipelines in Node.js or developing comprehensive portals with Laravel, my focus is always on delivering scalable, clean, and highly maintainable infrastructure.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Certifications</h3>
+                    <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                        <li class="flex items-start gap-2">
+                            <span class="text-primary-500 mt-1">▹</span> The Complete Node.js Developer Course (Udemy)
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-primary-500 mt-1">▹</span> Complete Vue Mastery 2022 (Udemy)
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-primary-500 mt-1">▹</span> Master the Coding Interview: DSA (Udemy)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="reveal reveal-right grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="w-10 h-10" alt="Node.js">
+                        <span class="text-sm font-semibold">Node.js</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" class="w-10 h-10" alt="Laravel">
+                        <span class="text-sm font-semibold">Laravel</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" class="w-10 h-10" alt="PHP">
+                        <span class="text-sm font-semibold">Core PHP</span>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="text-sm font-semibold">REST API</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <svg class="w-10 h-10 text-fuchsia-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path>
+                        </svg>
+                        <span class="text-sm font-semibold">AI</span>
+                    </div>
+                    
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" class="w-10 h-10" alt="MySQL">
+                        <span class="text-sm font-semibold">MySQL</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" class="w-10 h-10" alt="MongoDB">
+                        <span class="text-sm font-semibold">MongoDB</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" class="w-10 h-10 dark:invert" alt="AWS">
+                        <span class="text-sm font-semibold">AWS</span>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-3 hover:border-primary-500 transition-colors">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="w-10 h-10" alt="Git">
+                        <span class="text-sm font-semibold">Git / Linux</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE TIMELINE -->
+    <section id="experience" class="py-24 relative bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Career Journey</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-secondary-500 to-primary-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="relative border-l-2 border-slate-200 dark:border-slate-700 ml-4 md:ml-0 md:border-l-0">
+                
+                <!-- Timeline Item 1 -->
+                <div class="reveal relative md:w-1/2 md:pr-12 md:ml-0 mb-12 pl-8 md:pl-0 md:text-right">
+                    <div class="absolute w-4 h-4 bg-primary-500 rounded-full border-4 border-slate-50 dark:border-slate-950 left-[-9px] md:left-auto md:-right-2 top-1"></div>
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-primary-400 transition-all text-left md:text-right">
+                        <span class="text-primary-600 dark:text-primary-400 text-sm font-bold tracking-wider">Dec 2023 - Present</span>
+                        <h3 class="text-xl font-bold mt-2">Software Engineer</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Vanilla Networks Pvt. Ltd.</p>
+                        <ul class="text-slate-600 dark:text-slate-300 mt-4 text-sm leading-relaxed space-y-2 inline-block md:text-right list-inside">
+                            <li>• Built a JSON Editor app using Laravel, VueJS, and Tailwind.</li>
+                            <li>• Developed backend auth for a chat app using Laravel 11 & MySQL.</li>
+                            <li>• Created robust NodeJS functions for large-scale data management.</li>
+                            <li>• Developed AWS Lambda functions for U.S. based clients.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Central Line for Desktop -->
+                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700 -ml-px"></div>
+
+                <!-- Timeline Item 2 -->
+                <div class="reveal relative md:w-1/2 md:pl-12 md:ml-auto mb-12 pl-8 text-left">
+                    <div class="absolute w-4 h-4 bg-secondary-500 rounded-full border-4 border-slate-50 dark:border-slate-950 left-[-9px] md:-left-2 top-1"></div>
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-secondary-400 transition-all">
+                        <span class="text-secondary-600 dark:text-secondary-400 text-sm font-bold tracking-wider">Feb 2023 - Dec 2023</span>
+                        <h3 class="text-xl font-bold mt-2">Senior Web Developer</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Brandwind</p>
+                        <ul class="text-slate-600 dark:text-slate-300 mt-4 text-sm leading-relaxed space-y-2">
+                            <li>• Built a Student Management Portal (Laravel 10, Tailwind).</li>
+                            <li>• Created admission and fee collection systems with PHP & MySQL.</li>
+                            <li>• Developed a REST API for an HRM system using NodeJS & MongoDB.</li>
+                            <li>• Engineered a restaurant billing system via React, React Native & Laravel.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="reveal relative md:w-1/2 md:pr-12 md:ml-0 mb-12 pl-8 md:pl-0 md:text-right">
+                    <div class="absolute w-4 h-4 bg-primary-500 rounded-full border-4 border-slate-50 dark:border-slate-950 left-[-9px] md:left-auto md:-right-2 top-1"></div>
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-primary-400 transition-all text-left md:text-right">
+                        <span class="text-primary-600 dark:text-primary-400 text-sm font-bold tracking-wider">Nov 2021 - Sep 2022</span>
+                        <h3 class="text-xl font-bold mt-2">Web Developer</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Octazeal Private Limited</p>
+                        <ul class="text-slate-600 dark:text-slate-300 mt-4 text-sm leading-relaxed space-y-2 inline-block md:text-right list-inside">
+                            <li>• Developed an ERP system for a client using NodeJS and VueJS.</li>
+                            <li>• Built an internal company CRM system utilizing PHP and MySQL.</li>
+                            <li>• Developed 20+ static SEO-optimized websites for global clients.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="py-24 bg-white dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Featured Projects</h2>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">A selection of recent applications and REST APIs I have built.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+                
+                <div class="reveal group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-300 flex flex-col">
+                    <div class="h-40 relative overflow-hidden bg-gradient-to-br from-blue-500/10 to-slate-200 dark:from-blue-500/20 dark:to-slate-900 flex items-center justify-center border-b border-slate-200 dark:border-slate-800">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] dark:opacity-100 opacity-50 invert dark:invert-0"></div>
+                        <h4 class="text-2xl font-black text-slate-800 dark:text-white tracking-widest uppercase z-10 drop-shadow-md">React Vault</h4>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary-500 transition-colors">Serverless Password Manager</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed flex-1">
+                            A highly secure password manager application designed to run entirely client-side without requiring a backend server. Built to ensure maximum privacy and data ownership.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-semibold px-3 py-1 bg-primary-100 text-primary-800 dark:bg-primary-500/20 dark:text-primary-300 rounded-full">ReactJS</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://vault.backendguy.com/" target="_blank" class="text-sm font-bold text-primary-500 hover:text-primary-600 transition-colors flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg> Live View
+                            </a>
+                            <a href="https://github.com/kunalkhanx/react-vault" target="_blank" class="text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482z" clip-rule="evenodd"/></svg> Source
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-300 flex flex-col delay-100">
+                    <div class="h-40 relative overflow-hidden bg-gradient-to-br from-red-500/10 to-slate-200 dark:from-red-500/20 dark:to-slate-900 flex items-center justify-center border-b border-slate-200 dark:border-slate-800">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] dark:opacity-100 opacity-50 invert dark:invert-0"></div>
+                        <h4 class="text-2xl font-black text-slate-800 dark:text-white tracking-widest uppercase z-10 drop-shadow-md">Hink</h4>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary-500 transition-colors">URL Shortener App</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed flex-1">
+                            A fast, reliable link shortener application with robust routing. Built to handle URL redirection logic and management seamlessly using the Laravel framework.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-semibold px-3 py-1 bg-primary-100 text-primary-800 dark:bg-primary-500/20 dark:text-primary-300 rounded-full">Laravel</span>
+                            <span class="text-xs font-semibold px-3 py-1 bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 rounded-full">MySQL</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://hink.in/" target="_blank" class="text-sm font-bold text-primary-500 hover:text-primary-600 transition-colors flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg> Live View
+                            </a>
+                            <a href="https://github.com/kunalkhanx/hink.in" target="_blank" class="text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482z" clip-rule="evenodd"/></svg> Source
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-300 flex flex-col delay-200">
+                    <div class="h-40 relative overflow-hidden bg-gradient-to-br from-green-500/10 to-slate-200 dark:from-green-500/20 dark:to-slate-900 flex items-center justify-center border-b border-slate-200 dark:border-slate-800">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] dark:opacity-100 opacity-50 invert dark:invert-0"></div>
+                        <h4 class="text-2xl font-black text-slate-800 dark:text-white tracking-widest uppercase z-10 drop-shadow-md">Habit Tracker</h4>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary-500 transition-colors">RESTful Tracking API</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed flex-1">
+                            A comprehensive REST API built to track daily habits, manage user streaks, and store historical habit data using NoSQL databases.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-semibold px-3 py-1 bg-primary-100 text-primary-800 dark:bg-primary-500/20 dark:text-primary-300 rounded-full">NodeJS</span>
+                            <span class="text-xs font-semibold px-3 py-1 bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 rounded-full">MongoDB</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/kunalkhanx/habit-tracker-api" target="_blank" class="text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482z" clip-rule="evenodd"/></svg> Source
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-300 flex flex-col delay-300">
+                    <div class="h-40 relative overflow-hidden bg-gradient-to-br from-amber-500/10 to-slate-200 dark:from-amber-500/20 dark:to-slate-900 flex items-center justify-center border-b border-slate-200 dark:border-slate-800">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] dark:opacity-100 opacity-50 invert dark:invert-0"></div>
+                        <h4 class="text-2xl font-black text-slate-800 dark:text-white tracking-widest uppercase z-10 drop-shadow-md">ImgShare</h4>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-3 group-hover:text-primary-500 transition-colors">Image Sharing Portal</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed flex-1">
+                            A fully functional media platform enabling users to upload, store, and seamlessly share images over the web. Built on modern PHP routing architecture.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs font-semibold px-3 py-1 bg-primary-100 text-primary-800 dark:bg-primary-500/20 dark:text-primary-300 rounded-full">Laravel 11</span>
+                            <span class="text-xs font-semibold px-3 py-1 bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 rounded-full">MySQL</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://imgshare.backendguy.com/" target="_blank" class="text-sm font-bold text-primary-500 hover:text-primary-600 transition-colors flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg> Live View
+                            </a>
+                            <a href="https://github.com/kunalkhanx/imgshare" target="_blank" class="text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482z" clip-rule="evenodd"/></svg> Source
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- RESPONSIVE THEMED TERMINAL CTA SECTION -->
+    <section id="contact" class="py-32 relative bg-slate-100 dark:bg-slate-950 flex items-center justify-center overflow-hidden z-0 transition-colors duration-300">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0,transparent_50%)] dark:bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.15)_0,transparent_50%)]"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgNDBMMDAgMEw0MCAwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMCwgMCwgMCwgMC4wNSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgNDBMMDAgMEw0MCAwIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==')] opacity-100 dark:opacity-50"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 relative z-10 w-full reveal">
+            <div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl shadow-primary-500/5 dark:shadow-primary-500/10 overflow-hidden group hover:border-primary-400 dark:hover:border-primary-500/30 transition-colors duration-500 relative">
+                
+                <div class="bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between transition-colors duration-300">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-400 dark:bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-primary-400 dark:bg-primary-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400 dark:bg-green-500/80"></div>
+                    </div>
+                    <div class="text-slate-500 font-mono text-xs tracking-wider">~/contact-kunal.sh</div>
+                    <div class="w-10"></div>
+                </div>
+                
+                <div class="p-8 md:p-14 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-10">
+                    <div class="flex-1">
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-5 tracking-tight transition-colors duration-300">
+                            Ready to <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500 dark:from-primary-400 dark:to-secondary-600">Execute?</span>
+                        </h2>
+                        <div class="font-mono text-sm md:text-base leading-relaxed mb-8 space-y-2 text-left">
+                            <p><span class="text-green-500 dark:text-green-400 font-bold">➜</span> <span class="text-primary-500 dark:text-primary-400 font-bold">~</span> <span class="text-slate-700 dark:text-slate-300">status --current</span></p>
+                            <p class="pl-4 text-slate-500 dark:text-slate-400">"Available for new architectural challenges."</p>
+                            <p><span class="text-green-500 dark:text-green-400 font-bold">➜</span> <span class="text-primary-500 dark:text-primary-400 font-bold">~</span> <span class="text-slate-700 dark:text-slate-300">contact --method email</span></p>
+                            <p class="pl-4 text-slate-500 dark:text-slate-400">Bypassing web forms. Establishing direct connection...</p>
+                            <p class="pl-4 text-primary-500 animate-pulse font-bold text-xl mt-1">_</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-shrink-0 w-full sm:w-auto relative">
+                        <a href="mailto:kunal@backendguy.com" class="relative inline-flex items-center justify-center group/btn w-full sm:w-auto">
+                            <div class="absolute inset-0 bg-primary-500 rounded-xl blur-md opacity-30 dark:opacity-40 group-hover/btn:opacity-60 dark:group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                            <div class="relative flex items-center justify-center px-8 py-5 bg-primary-500 text-slate-900 dark:text-slate-950 font-black text-lg rounded-xl overflow-hidden transition-transform duration-300 group-hover/btn:scale-[1.03] border border-primary-400 shadow-xl">
+                                <div class="absolute inset-0 -translate-x-full group-hover/btn:animate-shimmer bg-gradient-to-r from-transparent via-white/40 to-transparent z-10"></div>
+                                <svg class="w-6 h-6 mr-3 z-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                <span class="z-20">Initialize Contact</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-10 bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 text-center text-sm border-t border-slate-200 dark:border-slate-800 relative z-10 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <p class="font-medium text-base mb-1">&copy; <span id="year"></span> Kunal Ali Khan.</p>
+                <p class="text-xs">Software Engineer & Backend Developer | Bolpur, West Bengal</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 sm:space-x-6 sm:gap-0 mt-4 md:mt-0">
+                <a href="https://github.com/kunalkhanx" target="_blank" class="hover:text-primary-500 transition-colors font-medium">GitHub</a>
+                <a href="https://www.linkedin.com/in/kunal-ali-khan-ba3753213/" target="_blank" class="hover:text-primary-500 transition-colors font-medium">LinkedIn</a>
+                <a href="https://www.instagram.com/backendguy_kunal" target="_blank" class="hover:text-primary-500 transition-colors font-medium">Instagram</a>
+                <a href="mailto:kunal@backendguy.com" class="hover:text-primary-500 transition-colors font-medium">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVITY SCRIPTS -->
+    <script>
+        // 1. Dynamic Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 2. Dark Mode Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const html = document.documentElement;
+
+        function updateIcons() {
+            if (html.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            } else {
+                lightIcon.classList.add('hidden');
+                darkIcon.classList.remove('hidden');
+            }
+        }
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        updateIcons();
+
+        themeToggleBtn.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            updateIcons();
+        });
+
+        // 3. Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            mobileMenu.classList.toggle('translate-x-0');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(mobileMenu.classList.contains('translate-x-0')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        // 4. Scroll Reveal Animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 5. Navbar Scroll Effect & Robust Scroll Spy
+        const navbar = document.getElementById('navbar');
+        const navContainer = document.getElementById('nav-container');
+        const sections = document.querySelectorAll('main, section');
+        const allNavLinks = document.querySelectorAll('.nav-link, .mobile-link');
+
+        window.addEventListener('scroll', () => {
+            // Navbar Shrink
+            if (window.scrollY > 50) {
+                navContainer.classList.remove('h-20');
+                navContainer.classList.add('h-16');
+            } else {
+                navContainer.classList.add('h-20');
+                navContainer.classList.remove('h-16');
+            }
+
+            // Scroll Spy
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            // Universal Active Highlight Logic
+            allNavLinks.forEach(link => {
+                // Remove primary highlight colors first
+                link.classList.remove('text-primary-500', 'dark:text-primary-400');
+                
+                // Add default colors back based on link type
+                if (link.classList.contains('nav-link')) {
+                    link.classList.add('text-slate-700', 'dark:text-slate-300');
+                } else if (link.classList.contains('mobile-link')) {
+                    link.classList.add('text-slate-800', 'dark:text-slate-200');
+                }
+
+                // Apply active highlight
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.remove('text-slate-700', 'dark:text-slate-300', 'text-slate-800', 'dark:text-slate-200');
+                    link.classList.add('text-primary-500', 'dark:text-primary-400');
+                }
+            });
+        });
+        
+        // Trigger scroll event on load to set initial active states
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
